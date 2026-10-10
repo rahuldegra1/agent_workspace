@@ -1,5 +1,6 @@
 import urllib.request
 import re
+import json
 
 def scrape_books(url):
     # Fetch the content of the webpage
@@ -14,11 +15,17 @@ def scrape_books(url):
     titles = title_pattern.findall(content)
     prices = price_pattern.findall(content)
 
-    # Print the first 5 book titles and prices
+    # Create a list of dictionaries to store the book data
+    books_data = []
     for i in range(min(5, len(titles))):
-        print(f"Title: {titles[i]}")
-        print(f"Price: £{prices[i]}")
-        print("-" * 40)
+        books_data.append({
+            "title": titles[i],
+            "price": prices[i]
+        })
+
+    # Write the list of dictionaries to a JSON file with indentation
+    with open('books_data.json', 'w') as json_file:
+        json.dump(books_data, json_file, indent=4)
 
 if __name__ == '__main__':
     url = 'http://books.toscrape.com/'
