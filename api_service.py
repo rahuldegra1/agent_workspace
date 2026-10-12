@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
 import urllib.request
 import re
@@ -18,10 +18,9 @@ def root():
     return {"message": "hello"}
 
 @app.post("/scrape")
-async def scrape_books(request: Request):
-    # Get the payload from the request body, default to None
-    payload = await request.json()
-    url = payload.get('url', 'http://books.toscrape.com/')
+def scrape_books(payload: ScrapeRequest = ScrapeRequest()):
+    # Access the URL directly from the payload
+    url = payload.url
 
     # Fetch the content of the webpage
     response = urllib.request.urlopen(url)
