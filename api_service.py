@@ -1,9 +1,13 @@
 from fastapi import FastAPI, Request
+from pydantic import BaseModel
 import urllib.request
 import re
 import json
 
 app = FastAPI()
+
+class ScrapeRequest(BaseModel):
+    url: str = "http://books.toscrape.com/"
 
 @app.get("/health")
 def health_check():
@@ -15,9 +19,9 @@ def root():
 
 @app.post("/scrape")
 async def scrape_books(request: Request):
-    # Get the URL from the request body, default to 'http://books.toscrape.com/'
-    data = await request.json()
-    url = data.get('url', 'http://books.toscrape.com/')
+    # Get the payload from the request body, default to None
+    payload = await request.json()
+    url = payload.get('url', 'http://books.toscrape.com/')
 
     # Fetch the content of the webpage
     response = urllib.request.urlopen(url)
