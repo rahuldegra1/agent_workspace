@@ -19,7 +19,6 @@ def root():
 
 @app.post("/scrape")
 def scrape_books(payload: ScrapeRequest = ScrapeRequest()):
-    # Access the URL directly from the payload
     url = payload.url
 
     # Fetch the content of the webpage
