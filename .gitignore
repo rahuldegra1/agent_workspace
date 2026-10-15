@@ -1,0 +1,31 @@
+# IDE and agent files
+.aider*
+.vscode/
+.idea/
+
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Build and distribution outputs
+build/
+dist/
+*.spec
+!controller.spec
+*.exe
+
+# Desktop and OCR artifacts
+*.png
+screen_ocr.png
+screenshot.png
+desktop_screen.png
+
+# Environment files
+.env
+.env.*
+
